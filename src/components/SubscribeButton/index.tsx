@@ -16,16 +16,15 @@ export function SubscribeButton({priceId}: SubscribeButtonProps){
             signIn('github')
             return;
         }
-
-        //criacao da checkout session
+        
         try{
             const response = await api.post('/subscribe')
 
-            const { sessionId } = response.data      
+            const { sessionId } = response.data;   
 
             const stripe = await getStripeJS()
 
-            await stripe.redirectToCheckout({sessionId})
+            await stripe.redirectToCheckout({sessionId: sessionId})
         }catch(err){
             alert(err.message);
         }
